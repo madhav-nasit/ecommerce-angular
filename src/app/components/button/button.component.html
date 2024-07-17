@@ -1,1 +1,3 @@
-<button type="button"><ng-content></ng-content></button>
+<button [type]="type" [disabled]="disabled"
+    class="font-regular rounded bg-button px-4 py-2 text-background transition-transform hover:scale-105 hover:bg-button-hover disabled:scale-100 disabled:bg-button"
+    [class]="extraClass"><ng-content></ng-content></button>
