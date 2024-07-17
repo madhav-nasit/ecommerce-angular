@@ -1,0 +1,15 @@
+<div class="flex min-h-screen flex-col items-center justify-center bg-background dark:bg-background-dark">
+    <!-- Image for error illustration -->
+    <img src="assets/svgs/not-found.svg" alt="Not Found"
+        class="size-40 fill-color object-contain md:size-52 dark:fill-color-dark" />
+    <!-- Error message section -->
+    <div class="text-center">
+        <h1 class="mb-4 text-4xl font-bold text-error dark:text-error-dark">Oops!</h1>
+        <p class="mb-2 text-sm text-color dark:text-color-dark">
+            {{ error?.statusText || error?.message || 'Something went wrong. Please try again later.' }}
+        </p>
+        <p class="text-lg text-error dark:text-error-dark">Page not found.</p>
+    </div>
+    <!-- Button to navigate back to the home page -->
+    <app-button class="mt-4 btn" (click)="navigateToHome()">Go Back</app-button>
+</div>
