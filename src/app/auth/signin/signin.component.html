@@ -1,1 +1,22 @@
-<p>signin works!</p>
+<div class="w-full p-8 md:max-w-md">
+    <!-- Heading section -->
+    <h1 class="mb-4 text-3xl font-normal">Sign In</h1>
+    <p class="mb-4 text-sm text-light dark:text-light-dark">
+        Don’t have an account yet?
+        <a class="cursor-pointer font-semibold text-color hover:text-button-hover dark:text-color-dark dark:hover:text-hover"
+            routerLink="/auth/signup" routerLinkActive="active" ariaCurrentWhenActive="page">Sign Up</a>
+    </p>
+
+    <form id="form-container" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <app-input id="email" type="email" label="Email" [control]="signinForm.controls.email"
+            [error]="getEmailError()" />
+        <app-input id="password" type="password" label="Password" [control]="signinForm.controls.password"
+            [error]="getPasswordError()" />
+        <!-- Sign-in button -->
+        <app-button type="submit" extraClass="mt-2 w-full" [disabled]="!signinForm.valid">Sign In</app-button>
+    </form>
+
+    @if (false) {
+    <app-spinner></app-spinner>
+    }
+</div>
