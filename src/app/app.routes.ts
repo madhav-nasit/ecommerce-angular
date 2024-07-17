@@ -11,8 +11,9 @@ export const routes: Routes = [
     path: 'auth',
     component: AuthPageComponent,
     children: [
-      { path: 'signup', component: SignupComponent },
+      { path: '', redirectTo: 'signin', pathMatch: 'full' },
       { path: 'signin', component: SigninComponent },
+      { path: 'signup', component: SignupComponent },
     ],
   }, // Your home route
   { path: '**', component: ErrorPageComponent }, // Wildcard route for a 404 page
