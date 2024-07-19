@@ -1,0 +1,77 @@
+<div class="w-full p-8 md:max-w-md">
+  <!-- Heading section -->
+  <h1 class="mb-4 text-3xl font-normal">Sign Up</h1>
+  <p class="mb-4 text-sm text-light dark:text-light-dark">
+    Already have an account?
+    <a
+      class="cursor-pointer font-semibold text-color hover:text-button-hover dark:text-color-dark dark:hover:text-hover"
+      routerLink="/auth/signin"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+    >
+      Sign In
+    </a>
+  </p>
+
+  <form id="form-container" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-col lg:flex-row">
+      <app-input
+        id="firstName"
+        label="First Name"
+        [control]="signupForm.controls.firstName"
+        [error]="getError('firstName')"
+      ></app-input>
+      <div class="hidden w-4 lg:block"></div>
+      <app-input
+        id="lastName"
+        label="Last Name"
+        [control]="signupForm.controls.lastName"
+        [error]="getError('lastName')"
+      ></app-input>
+    </div>
+    <app-input
+      id="email"
+      label="Email"
+      [control]="signupForm.controls.email"
+      [error]="getError('email')"
+    ></app-input>
+    <app-input
+      id="password"
+      type="password"
+      label="Password"
+      [control]="signupForm.controls.password"
+      [error]="getError('password')"
+    ></app-input>
+    <app-input
+      id="confirmPassword"
+      type="password"
+      label="Confirm Password"
+      [control]="signupForm.controls.confirmPassword"
+      [error]="getError('confirmPassword')"
+    ></app-input>
+    <div>
+      <label>
+        <input type="checkbox" formControlName="acceptTerms" />
+        I accept the
+        <a routerLink="/terms" class="font-medium text-color underline dark:text-color-dark"
+          >terms of use</a
+        >
+        and
+        <a routerLink="/privacy" class="font-medium text-color underline dark:text-color-dark"
+          >privacy policy</a
+        >.
+      </label>
+      @if (getError('acceptTerms')) {
+      <p
+        class="animate-fadeInDown text-xs text-error transition-all duration-500 dark:text-error-dark"
+      >
+        {{ getError('acceptTerms') }}
+      </p>
+      }
+    </div>
+    <app-button type="submit" extraClass="mt-2 w-full">Sign Up</app-button>
+    @if (false) {
+    <app-spinner></app-spinner>
+    }
+  </form>
+</div>
