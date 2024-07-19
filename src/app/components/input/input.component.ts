@@ -1,4 +1,4 @@
-import { Component, Input, Optional, Self } from '@angular/core';
+import { Component, ElementRef, Input, Optional, Self, ViewChild } from '@angular/core';
 import { FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 
 interface InputProps {
@@ -24,6 +24,7 @@ export class InputComponent implements InputProps {
   @Input() label!: string;
   @Input() error?: string;
   @Input() class?: string;
+  @ViewChild('input') myInput!: ElementRef<any>;
 
   onChange: any = () => {};
   onTouch: any = () => {};
@@ -45,4 +46,8 @@ export class InputComponent implements InputProps {
   }
 
   writeValue(value: any): void {}
+
+  focusOnInput() {
+    this.myInput.nativeElement.focus();
+  }
 }
