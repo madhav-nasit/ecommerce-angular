@@ -3,8 +3,9 @@ import { SpinnerComponent } from '../../../components/spinner/spinner.component'
 import { InputComponent } from '../../../components/input/input.component';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { getControlError } from '../../../helper';
+import { AuthService } from '../../../services';
 
 type ControlNames = 'email' | 'password';
 
@@ -30,13 +31,25 @@ export class SigninComponent {
     password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex)]),
   });
 
+  constructor(private authService: AuthService, private router: Router) {}
+
   @HostBinding('class') get classes(): string {
     return `flex w-full justify-center md:my-auto`;
   }
 
   onSubmit() {
     if (this.signinForm.valid) {
-      console.log('Signin form values:', this.signinForm.value);
+      const signInReq = {
+        email: this.signinForm.value.email as string,
+        password: this.signinForm.value.password as string,
+      };
+      this.authService.signIn(signInReq).subscribe({
+        next: () => {
+          this.router.navigateByUrl('');
+        },
+        error: (e) => console.log('error', e),
+        complete: () => console.info('complete'),
+      });
     } else {
       Object.keys(this.signinForm.controls).forEach((field) => {
         const control = this.signinForm.get(field);

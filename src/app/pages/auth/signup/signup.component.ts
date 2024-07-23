@@ -6,11 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SpinnerComponent } from '../../../components/spinner/spinner.component';
 import { InputComponent } from '../../../components/input/input.component';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { getControlError } from '../../../helper';
+import { AuthService } from '../../../services';
 
 type ControlNames =
   | 'firstName'
@@ -52,13 +53,27 @@ export class SignupComponent {
     { validators: this.passwordMatchValidator },
   );
 
+  constructor(private authService: AuthService, private router: Router) {}
+
   @HostBinding('class') get classes(): string {
     return `flex w-full justify-center md:my-auto`;
   }
 
   onSubmit() {
     if (this.signupForm.valid) {
-      console.log('Signup form values:', this.signupForm.value);
+      const signUpReq = {
+        firstName: this.signupForm.value.firstName,
+        lastName: this.signupForm.value.firstName,
+        email: this.signupForm.value.email as string,
+        password: this.signupForm.value.password as string,
+      };
+      this.authService.signIn(signUpReq).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/auth/signin');
+        },
+        error: (e) => console.log('error', e),
+        complete: () => console.info('complete'),
+      });
     } else {
       Object.keys(this.signupForm.controls).forEach((field) => {
         const control = this.signupForm.get(field);
