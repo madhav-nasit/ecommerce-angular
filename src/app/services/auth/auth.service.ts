@@ -20,6 +20,16 @@ export class AuthService {
     }
   }
 
+  get token() {
+    const appSession = storage.getItem('appSession');
+    return appSession?.token;
+  }
+
+  get profile() {
+    const appSession = storage.getItem('appSession');
+    return appSession?.user ? { ...JSON.parse(appSession?.user), token: undefined } : undefined;
+  }
+
   signIn(signInReq: SignInReq) {
     return this.http.post<User>(environment.apiUrl + 'auth/sign-in', signInReq).pipe(
       map((response) => {
@@ -38,6 +48,15 @@ export class AuthService {
   signUp(signUpReq: SignUpReq) {
     return this.http.post<User>(environment.apiUrl + 'auth/sign-up', signUpReq).pipe(
       map((response) => {
+        return response;
+      }),
+    );
+  }
+
+  getProfile() {
+    return this.http.get<User>(environment.apiUrl + 'auth/profile').pipe(
+      map((response) => {
+        this.user.next(response);
         return response;
       }),
     );

@@ -19,6 +19,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.authService.user$.pipe(map((state) => state));
+    this.getProfile();
+  }
+
+  getProfile() {
+    this.authService.getProfile().subscribe();
   }
 
   onLogout(): void {
