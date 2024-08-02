@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { User } from '../../types';
-import { AuthService } from '../../services';
+import { User } from '../../../types';
+import { AuthService } from '../../../services';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../../components/button/button.component';
+import { ButtonComponent } from '../../../components/button/button.component';
 
 @Component({
   selector: 'app-dashboard',

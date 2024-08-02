@@ -4,7 +4,7 @@ import { AuthPageComponent } from './pages/auth/auth-page/auth-page.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { SigninComponent } from './pages/auth/signin/signin.component';
 import { authGuard } from './guards';
-import { DashboardComponent } from './primary/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/primary/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
