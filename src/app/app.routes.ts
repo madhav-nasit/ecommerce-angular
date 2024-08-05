@@ -5,12 +5,14 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
 import { SigninComponent } from './pages/auth/signin/signin.component';
 import { authGuard } from './guards';
 import { DashboardComponent } from './pages/primary/dashboard/dashboard.component';
+import { PrimaryPageComponent } from './pages/primary/primary-page/primary-page.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: PrimaryPageComponent,
     canActivate: [authGuard],
+    children: [{ path: '', component: DashboardComponent }],
   }, // Your home route
   {
     path: 'auth',
