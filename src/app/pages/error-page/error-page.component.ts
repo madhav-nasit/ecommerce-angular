@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../components/button/button.component';
+import { routes, strings } from '../../constants';
+import { svg } from '../../../assets/svgs';
 
 @Component({
   selector: 'app-error-page',
@@ -11,10 +13,12 @@ import { ButtonComponent } from '../../components/button/button.component';
 })
 export class ErrorPageComponent {
   error: any = {}; // Replace with actual error fetching logic
+  strings = strings.common;
+  svgPaths = svg;
 
   constructor(private router: Router) {}
 
   navigateToHome() {
-    this.router.navigate(['/']); // Adjust the route as necessary
+    this.router.navigateByUrl(routes.root); // Adjust the route as necessary
   }
 }

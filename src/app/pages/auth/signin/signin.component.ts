@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { getControlError } from '../../../helper';
 import { AuthService } from '../../../services';
+import { regex, routes, strings } from '../../../constants';
 
 type ControlNames = 'email' | 'password';
 
@@ -25,11 +26,13 @@ type ControlNames = 'email' | 'password';
   styleUrl: './signin.component.css',
 })
 export class SigninComponent {
-  passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  passwordRegex = regex.password;
   signinForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex)]),
   });
+  strings = strings.auth;
+  loading: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -39,16 +42,17 @@ export class SigninComponent {
 
   onSubmit() {
     if (this.signinForm.valid) {
+      this.loading = true;
       const signInReq = {
         email: this.signinForm.value.email as string,
         password: this.signinForm.value.password as string,
       };
       this.authService.signIn(signInReq).subscribe({
         next: () => {
-          this.router.navigateByUrl('');
+          this.router.navigateByUrl(routes.root);
         },
-        error: (e) => console.log('error', e),
-        complete: () => console.info('complete'),
+        error: (e) => (this.loading = false),
+        complete: () => (this.loading = false),
       });
     } else {
       Object.keys(this.signinForm.controls).forEach((field) => {

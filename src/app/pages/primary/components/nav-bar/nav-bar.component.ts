@@ -6,6 +6,8 @@ import { map, Observable } from 'rxjs';
 import { User } from '../../../../types';
 import { ProfileMenuComponent } from '../profile-menu/profile-menu.component';
 import { CommonModule } from '@angular/common';
+import { routes, strings } from '../../../../constants';
+import { svg } from '../../../../../assets/svgs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,6 +19,10 @@ import { CommonModule } from '@angular/common';
 export class NavBarComponent {
   user$!: Observable<User | null>;
   menuVisible = false;
+  commonStrings = strings.common;
+  strings = strings.primary;
+  svgPaths = svg;
+  routes = routes;
 
   constructor(private router: Router, private authService: AuthService) {}
 

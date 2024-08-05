@@ -5,6 +5,9 @@ import { SignInReq, SignUpReq, User } from '../../types';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { storage } from '../../utils';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { routes, strings } from '../../constants';
+import { endPoints } from '../endPoints';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +15,9 @@ import { Router } from '@angular/router';
 export class AuthService {
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   user$: Observable<User | null> = this.user.asObservable();
+  strings = strings.auth;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {
     const appSession = storage.getItem('appSession');
     if (!!appSession?.user) {
       this.user.next(JSON.parse(appSession?.user));
@@ -31,7 +35,7 @@ export class AuthService {
   }
 
   signIn(signInReq: SignInReq) {
-    return this.http.post<User>(environment.apiUrl + 'auth/sign-in', signInReq).pipe(
+    return this.http.post<User>(environment.apiUrl + endPoints.auth.logIn, signInReq).pipe(
       map((response) => {
         if (response?.token) {
           this.user.next(response);
@@ -39,6 +43,7 @@ export class AuthService {
             user: JSON.stringify({ ...response, token: undefined }),
             token: response?.token,
           });
+          this.toastr.success(this.strings.signIn.signInSuccess);
         }
         return response;
       }),
@@ -46,15 +51,16 @@ export class AuthService {
   }
 
   signUp(signUpReq: SignUpReq) {
-    return this.http.post<User>(environment.apiUrl + 'auth/sign-up', signUpReq).pipe(
+    return this.http.post<User>(environment.apiUrl + endPoints.auth.signUp, signUpReq).pipe(
       map((response) => {
+        this.toastr.success(this.strings.signUp.signUpSuccess);
         return response;
       }),
     );
   }
 
   getProfile() {
-    return this.http.get<User>(environment.apiUrl + 'auth/profile').pipe(
+    return this.http.get<User>(environment.apiUrl + endPoints.auth.getUser).pipe(
       map((response) => {
         this.user.next(response);
         return response;
@@ -69,6 +75,6 @@ export class AuthService {
 
   logout() {
     storage.removeItem('appSession');
-    this.router.navigateByUrl('/auth/signin');
+    this.router.navigateByUrl(routes.signIn);
   }
 }

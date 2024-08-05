@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services';
 import { User } from '../../../../types';
+import { strings } from '../../../../constants';
 
 @Component({
   selector: 'app-profile-menu',
@@ -13,6 +14,7 @@ import { User } from '../../../../types';
 export class ProfileMenuComponent {
   @Input() user?: User | null;
   menuVisible = false;
+  strings = strings.primary;
 
   constructor(private authService: AuthService, private router: Router) {}
 

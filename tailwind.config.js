@@ -46,6 +46,9 @@ export default {
         fadeIn: 'fadeIn 0.2s ease-in-out',
         fadeInDown: 'fadeInDown 0.2s ease-in',
       },
+      scale: {
+        101: '1.01',
+      },
       // that is actual animation
       keyframes: (theme) => ({
         fadeIn: {

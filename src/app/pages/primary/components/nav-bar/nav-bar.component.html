@@ -4,11 +4,11 @@
 >
   <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-2 md:p-4">
     <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-      <img src="assets/svgs/logo.svg" class="size-8 h-8 md:size-10" alt="App logo" />
+      <img [src]="svgPaths.logo" class="size-8 h-8 md:size-10" alt="App logo" />
       <span
         class="hidden self-center whitespace-nowrap text-xl font-semibold text-color md:block md:text-2xl dark:text-color-dark"
       >
-        E-commerce Angular
+        {{ commonStrings.appName }}
       </span>
     </a>
     <div class="flex items-center space-x-2 md:order-2 md:space-x-3 rtl:space-x-reverse">
@@ -22,7 +22,7 @@
         (click)="toggleMenu()"
       >
         <img
-          src="/assets/svgs/menu-icon.svg"
+          [src]="svgPaths.menuIcon"
           class="h-5 w-5 fill-light group-hover:fill-color dark:fill-light-dark dark:group-hover:fill-color-dark"
         />
       </button>
@@ -35,9 +35,13 @@
       <ul
         class="mt-4 flex flex-col rounded-lg border border-border bg-secondary p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-background md:p-0 rtl:space-x-reverse dark:border-border-dark dark:bg-secondary-dark md:dark:bg-background-dark"
       >
-        <app-menu-item href="/">Home</app-menu-item>
-        <app-menu-item href="/terms-conditions">Terms of Use</app-menu-item>
-        <app-menu-item href="/privacy-policy">Privacy Policy</app-menu-item>
+        <app-menu-item [href]="routes.root">{{ strings.dashboard.title }}</app-menu-item>
+        <app-menu-item [href]="routes.termsCondition">{{
+          strings.common.termsOfUse
+        }}</app-menu-item>
+        <app-menu-item [href]="routes.privacyPolicy">{{
+          strings.common.privacyPolicy
+        }}</app-menu-item>
       </ul>
     </div>
   </div>

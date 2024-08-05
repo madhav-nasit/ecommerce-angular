@@ -1,12 +1,14 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { AuthService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
+import { strings } from '../../constants';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const toastr = inject(ToastrService);
+  const errorMsg = strings.apiErrors;
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       // Handle the error here
@@ -15,24 +17,24 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           case 400:
             const message = error?.error?.message
               ? error.error.message
-              : 'Status 400: Bad request. Please check your request parameters.';
+              : errorMsg.internalServerError;
             toastr.error(message);
             break;
           case 401:
             authService.logout();
-            toastr.error('Unauthorized access. Please log in again.');
+            toastr.error(errorMsg.unauthorizedAccess);
             break;
           case 403:
-            toastr.error('Forbidden. You do not have permission to access this resource.');
+            toastr.error(errorMsg.forbiddenAccess);
             break;
           case 404:
-            toastr.error('Resource not found.');
+            toastr.error(errorMsg.resourceNotFound);
             break;
           case 500:
-            toastr.error('Internal server error. Please try again later or contact support.');
+            toastr.error(errorMsg.internalServerError);
             break;
           default:
-            toastr.error('Unable to connect to the server. Please try again.');
+            toastr.error(errorMsg.networkError);
             break;
         }
       }

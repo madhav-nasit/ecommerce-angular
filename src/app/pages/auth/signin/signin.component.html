@@ -1,14 +1,14 @@
 <div class="w-full p-8 md:max-w-md">
   <!-- Heading section -->
-  <h1 class="mb-4 text-3xl font-normal">Sign In</h1>
+  <h1 class="mb-4 text-3xl font-normal">{{ strings.signIn.title }}</h1>
   <p class="mb-4 text-sm text-light dark:text-light-dark">
-    Don’t have an account yet?
+    {{ strings.signIn.dontHaveAccount }}
     <a
       class="cursor-pointer font-semibold text-color hover:text-button-hover dark:text-color-dark dark:hover:text-hover"
       routerLink="/auth/signup"
       routerLinkActive="active"
       ariaCurrentWhenActive="page"
-      >Sign Up</a
+      >{{ strings.signUp.title }}</a
     >
   </p>
 
@@ -16,22 +16,22 @@
     <app-input
       id="email"
       type="email"
-      label="Email"
+      label="{{ strings.common.email }}"
       [control]="signinForm.controls.email"
       [error]="getError('email')"
     />
     <app-input
       id="password"
       type="password"
-      label="Password"
+      label="{{ strings.common.password }}"
       [control]="signinForm.controls.password"
       [error]="getError('password')"
     />
     <!-- Sign-in button -->
-    <app-button type="submit" extraClass="mt-2 w-full">Sign In</app-button>
+    <app-button type="submit" extraClass="mt-2 w-full">{{ strings.signIn.title }}</app-button>
   </form>
 
-  @if (false) {
+  @if (loading) {
   <app-spinner></app-spinner>
   }
 </div>

@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { strings } from '../../../constants';
+import { icons } from '../../../../assets/images';
+import { svg } from '../../../../assets/svgs';
 
 interface ImageAssets {
   src: string;
@@ -16,6 +19,8 @@ interface ImageAssets {
 export class AuthPageComponent implements OnInit {
   @Input() className: string = '';
   imageAssets?: ImageAssets;
+  strings = strings.common;
+  svgPaths = svg;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -36,13 +41,13 @@ export class AuthPageComponent implements OnInit {
 
     if (currentRoute === 'signup') {
       this.imageAssets = {
-        src: 'assets/images/headband.png', // Main image source
-        srcSet: 'assets/images/headband@2x.png 2x, assets/images/headband@3x.png 3x',
+        src: icons.headband, // Main image source
+        srcSet: `${icons.headband2x} 2x, ${icons.headband3x} 3x`,
       };
     } else {
       this.imageAssets = {
-        src: 'assets/images/iphone.png', // Main image source
-        srcSet: 'assets/images/iphone@2x.png 2x, assets/images/iphone@3x.png 3x',
+        src: icons.iphone, // Main image source
+        srcSet: `${icons.iphone2x} 2x, ${icons.iphone3x} 3x`,
       };
     }
   }

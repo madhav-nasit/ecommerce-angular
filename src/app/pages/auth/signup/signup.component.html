@@ -1,15 +1,15 @@
 <div class="w-full p-8 md:max-w-md">
   <!-- Heading section -->
-  <h1 class="mb-4 text-3xl font-normal">Sign Up</h1>
+  <h1 class="mb-4 text-3xl font-normal">{{ strings.signUp.title }}</h1>
   <p class="mb-4 text-sm text-light dark:text-light-dark">
-    Already have an account?
+    {{ strings.signUp.alreadyHaveAccount }}
     <a
       class="cursor-pointer font-semibold text-color hover:text-button-hover dark:text-color-dark dark:hover:text-hover"
       routerLink="/auth/signin"
       routerLinkActive="active"
       ariaCurrentWhenActive="page"
     >
-      Sign In
+      {{ strings.signIn.title }}
     </a>
   </p>
 
@@ -17,48 +17,49 @@
     <div class="flex flex-col lg:flex-row">
       <app-input
         id="firstName"
-        label="First Name"
+        [label]="strings.common.fName"
         [control]="signupForm.controls.firstName"
         [error]="getError('firstName')"
       ></app-input>
       <div class="hidden w-4 lg:block"></div>
       <app-input
         id="lastName"
-        label="Last Name"
+        [label]="strings.common.lName"
         [control]="signupForm.controls.lastName"
         [error]="getError('lastName')"
       ></app-input>
     </div>
     <app-input
       id="email"
-      label="Email"
+      [label]="strings.common.email"
       [control]="signupForm.controls.email"
       [error]="getError('email')"
     ></app-input>
     <app-input
       id="password"
       type="password"
-      label="Password"
+      [label]="strings.common.password"
       [control]="signupForm.controls.password"
       [error]="getError('password')"
     ></app-input>
     <app-input
       id="confirmPassword"
       type="password"
-      label="Confirm Password"
+      [label]="strings.common.confirmPassword"
       [control]="signupForm.controls.confirmPassword"
       [error]="getError('confirmPassword')"
     ></app-input>
     <div>
       <label>
         <input type="checkbox" formControlName="acceptTerms" />
-        I accept the
-        <a routerLink="/terms" class="font-medium text-color underline dark:text-color-dark"
-          >terms of use</a
-        >
-        and
-        <a routerLink="/privacy" class="font-medium text-color underline dark:text-color-dark"
-          >privacy policy</a
+        {{ strings.common.iAccept }}
+        <a routerLink="/terms" class="font-medium text-color underline dark:text-color-dark">{{
+          strings.common.termsOfUse
+        }}</a>
+        {{ strings.common.and }}
+        <a routerLink="/privacy" class="font-medium text-color underline dark:text-color-dark">{{
+          strings.common.privacyPolicy
+        }}</a
         >.
       </label>
       @if (getError('acceptTerms')) {
@@ -69,7 +70,7 @@
       </p>
       }
     </div>
-    <app-button type="submit" extraClass="mt-2 w-full">Sign Up</app-button>
+    <app-button type="submit" extraClass="mt-2 w-full">{{ strings.signUp.title }}</app-button>
     @if (false) {
     <app-spinner></app-spinner>
     }

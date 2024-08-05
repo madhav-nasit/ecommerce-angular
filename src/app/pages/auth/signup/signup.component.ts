@@ -12,6 +12,7 @@ import { InputComponent } from '../../../components/input/input.component';
 import { ButtonComponent } from '../../../components/button/button.component';
 import { getControlError } from '../../../helper';
 import { AuthService } from '../../../services';
+import { regex, routes, strings } from '../../../constants';
 
 type ControlNames =
   | 'firstName'
@@ -37,7 +38,9 @@ type ControlNames =
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
-  passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  passwordRegex = regex.password;
+  loading: boolean = false;
+  strings = strings.auth;
   signupForm = new FormGroup(
     {
       firstName: new FormControl('', [Validators.required]),
@@ -61,18 +64,19 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
+      this.loading = true;
       const signUpReq = {
-        firstName: this.signupForm.value.firstName,
-        lastName: this.signupForm.value.firstName,
+        firstName: this.signupForm.value.firstName as string,
+        lastName: this.signupForm.value.firstName as string,
         email: this.signupForm.value.email as string,
         password: this.signupForm.value.password as string,
       };
-      this.authService.signIn(signUpReq).subscribe({
+      this.authService.signUp(signUpReq).subscribe({
         next: () => {
-          this.router.navigateByUrl('/auth/signin');
+          this.router.navigateByUrl(routes.signIn);
         },
-        error: (e) => console.log('error', e),
-        complete: () => console.info('complete'),
+        error: (e) => (this.loading = false),
+        complete: () => (this.loading = false),
       });
     } else {
       Object.keys(this.signupForm.controls).forEach((field) => {
@@ -80,13 +84,6 @@ export class SignupComponent {
         control?.markAsTouched({ onlySelf: true });
       });
     }
-  }
-
-  convertCamelCaseToReadable(camelCaseString: string) {
-    // Add a space before each uppercase letter
-    const withSpaces = camelCaseString.replace(/([A-Z])/g, ' $1');
-    // Capitalize the first letter and return the result
-    return withSpaces.charAt(0).toUpperCase() + withSpaces?.toLowerCase().slice(1);
   }
 
   getError(controlName: ControlNames): string | undefined {
