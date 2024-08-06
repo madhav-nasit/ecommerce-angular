@@ -41,6 +41,7 @@ export class SignupComponent {
   passwordRegex = regex.password;
   loading: boolean = false;
   strings = strings.auth;
+  routes = routes;
   signupForm = new FormGroup(
     {
       firstName: new FormControl('', [Validators.required]),

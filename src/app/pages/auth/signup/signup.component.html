@@ -53,13 +53,16 @@
       <label>
         <input type="checkbox" formControlName="acceptTerms" />
         {{ strings.common.iAccept }}
-        <a routerLink="/terms" class="font-medium text-color underline dark:text-color-dark">{{
-          strings.common.termsOfUse
-        }}</a>
+        <a
+          [routerLink]="routes.termsCondition"
+          class="font-medium text-color underline dark:text-color-dark"
+          >{{ strings.common.termsOfUse }}</a
+        >
         {{ strings.common.and }}
-        <a routerLink="/privacy" class="font-medium text-color underline dark:text-color-dark">{{
-          strings.common.privacyPolicy
-        }}</a
+        <a
+          [routerLink]="routes.privacyPolicy"
+          class="font-medium text-color underline dark:text-color-dark"
+          >{{ strings.common.privacyPolicy }}</a
         >.
       </label>
       @if (getError('acceptTerms')) {

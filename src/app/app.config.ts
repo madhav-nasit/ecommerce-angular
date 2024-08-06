@@ -15,6 +15,10 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withInterceptors([loggingInterceptor, errorInterceptor, authInterceptor])),
     provideAnimations(), // required animations providers
-    provideToastr(), // Toastr providers
+    provideToastr({
+      timeOut: 10000,
+      progressBar: true,
+      preventDuplicates: true,
+    }), // Toastr providers
   ],
 };

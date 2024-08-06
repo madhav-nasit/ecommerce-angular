@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '../../components/button/button.component';
-import { routes, strings } from '../../constants';
-import { svg } from '../../../assets/svgs';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { routes, strings } from '../../../constants';
+import { svg } from '../../../../assets/svgs';
 
 @Component({
   selector: 'app-error-page',
