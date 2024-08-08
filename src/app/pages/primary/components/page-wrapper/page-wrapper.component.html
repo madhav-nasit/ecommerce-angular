@@ -1,0 +1,9 @@
+@if (isPending) {
+<app-spinner class="top-20"></app-spinner>
+} @else if (isError) {
+<div class="flex flex-col flex-grow self-center">
+  <app-error [errorMessage]="errorMsg"></app-error>
+</div>
+} @else {
+<ng-content></ng-content>
+}

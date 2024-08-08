@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesSliderComponent } from './components/category/categories-slider/categories-slider.component';
 import { PrimaryService } from '../../../services/primary/primary.service';
+import { PageWrapperComponent } from '../components/page-wrapper/page-wrapper.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CategoriesSliderComponent],
+  imports: [CategoriesSliderComponent, PageWrapperComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -15,7 +16,12 @@ export class DashboardComponent {
   categories: string[] = [];
   categoryName: string = 'all';
   loading = false;
+
   constructor(private route: ActivatedRoute, private primaryService: PrimaryService) {}
+
+  @HostBinding('class') get classes(): string {
+    return `flex flex-grow flex-col`;
+  }
 
   ngOnInit(): void {
     this.getAllCategories();
