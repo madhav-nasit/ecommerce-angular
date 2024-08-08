@@ -14,7 +14,7 @@ export class MenuItemComponent {
   constructor(private router: Router) {}
 
   isActive(): boolean {
-    const currentRoute = this.router.url;
+    const currentRoute = this.router.url.split('?')[0].split('#')[0];
     return currentRoute === this.href;
   }
 }

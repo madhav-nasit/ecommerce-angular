@@ -1,0 +1,26 @@
+<div
+  class="sticky top-0 z-40 w-screen overflow-hidden border-b border-border bg-background shadow dark:border-border-dark dark:bg-background-dark"
+>
+  <div
+    #container
+    class="no-scrollbar flex items-center gap-x-2 overflow-x-auto bg-background py-3 px-6 md:gap-x-4 dark:bg-background-dark"
+  >
+    <app-scroll-button
+      direction="left"
+      [hide]="hideLeftIcon"
+      (onClick)="scrollLeft()"
+    ></app-scroll-button>
+    @for (item of categories; track $index) {
+    <app-category-item
+      [item]="item"
+      [isSelected]="item === categoryName"
+      (onCategorySelect)="onCategorySelect($event)"
+    ></app-category-item>
+    }
+    <app-scroll-button
+      direction="right"
+      [hide]="hideRightIcon"
+      (onClick)="scrollRight()"
+    ></app-scroll-button>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<button
+  (click)="onButtonClick()"
+  class="flex h-full w-5 items-center justify-center border bg-secondary shadow-lg transition-colors duration-300 hover:scale-110 hover:bg-hover md:w-6 dark:bg-secondary-dark dark:hover:bg-hover-dark"
+>
+  @if (direction === 'left') {
+  <img [src]="svgPaths.chevronLeft" class="h-3 w-3 fill-light dark:fill-light-dark" />
+  } @else {
+  <img [src]="svgPaths.chevronRight" class="h-3 w-3 fill-light dark:fill-light-dark" />
+  }
+</button>
