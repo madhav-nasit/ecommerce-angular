@@ -3,12 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoriesSliderComponent } from './components/category/categories-slider/categories-slider.component';
 import { PrimaryService } from '../../../services/primary/primary.service';
 import { PageWrapperComponent } from '../components/page-wrapper/page-wrapper.component';
+import { ProductListComponent } from './components/products/product-list/product-list.component';
+import { strings } from '../../../constants';
 import { Product } from '../../../types';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CategoriesSliderComponent, PageWrapperComponent],
+  imports: [CategoriesSliderComponent, PageWrapperComponent, ProductListComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -21,6 +23,7 @@ export class DashboardComponent {
   error = false;
   errorMsg = '';
   productLimit = 15;
+  strings = strings.primary.dashboard;
 
   constructor(private route: ActivatedRoute, private primaryService: PrimaryService) {}
 
@@ -30,9 +33,9 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.getAllCategories();
-    this.getProducts(this.categoryName, this.productLimit, this.page);
     this.route.queryParamMap.subscribe((params) => {
       this.categoryName = params.get('category') || 'all';
+      this.getProducts(this.categoryName, this.productLimit, this.page);
     });
   }
 
@@ -52,11 +55,17 @@ export class DashboardComponent {
     this.primaryService.getProducts(categoryName, limit, page).subscribe({
       next: (res) => {
         this.products = res.products;
+        if (res.products.length === 0) {
+          this.error = true;
+          this.errorMsg = this.strings.noProduct;
+        }
       },
       error: (e) => {
         this.error = true;
         this.loading = false;
-        if (e) this.errorMsg = e;
+        if (e && e?.error) {
+          this.errorMsg = e.error?.message;
+        }
       },
       complete: () => (this.loading = false),
     });

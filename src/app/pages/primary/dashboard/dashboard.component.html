@@ -1,5 +1,7 @@
 <div class="flex-grow flex flex-col w-full">
   <app-categories-slider [categories]="categories" [categoryName]="categoryName">
   </app-categories-slider>
-  <app-page-wrapper> </app-page-wrapper>
+  <app-page-wrapper [isPending]="loading" [isError]="error" [errorMsg]="errorMsg">
+    <app-product-list [products]="products"></app-product-list>
+  </app-page-wrapper>
 </div>

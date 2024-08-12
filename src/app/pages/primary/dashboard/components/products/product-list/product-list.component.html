@@ -1,0 +1,24 @@
+<div
+  class="mx-auto grid max-w-screen-xl grid-cols-2 gap-4 px-2 py-2 sm:grid-cols-3 md:grid-cols-4 md:px-4 md:py-4 lg:grid-cols-5"
+>
+  @for (product of products; track product._id) {
+  <button
+    type="button"
+    class="flex flex-col overflow-hidden rounded-lg bg-card shadow-md hover:scale-105 dark:bg-card-dark"
+    (click)="navigateToProductDetails(product._id)"
+  >
+    <img [src]="product.thumbnail" [alt]="product.title" class="h-40 w-full object-cover" />
+    <div class="flex w-full flex-col items-stretch p-3">
+      <h3 class="line-clamp-1 text-left text-sm">{{ product.title }}</h3>
+      <div class="flex items-center space-x-1">
+        <p class="text-sm text-light dark:text-light-dark">${{ product.price }}</p>
+        @if ( product.discountPercentage > 0 ) {
+        <span class="text-xs text-light dark:text-light-dark">
+          ({{ product.discountPercentage }}% off)
+        </span>
+        }
+      </div>
+    </div>
+  </button>
+  }
+</div>

@@ -48,6 +48,9 @@ export const strings = {
     },
     dashboard: {
       title: 'Dashboard',
+      next: 'Next',
+      previous: 'Previous',
+      noProduct: 'No product available.',
     },
   },
   apiErrors: {

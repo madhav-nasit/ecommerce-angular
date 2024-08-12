@@ -1,11 +1,10 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
+  HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { ScrollButtonComponent } from '../scroll-button/scroll-button.component';
@@ -37,6 +36,10 @@ export class CategoriesSliderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.containerRef.nativeElement.removeEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  @HostBinding('class') get classes(): string {
+    return `sticky top-0 z-40 w-screen overflow-hidden border-b border-border bg-background shadow dark:border-border-dark dark:bg-background-dark`;
   }
 
   getScrollOffset(): number {
