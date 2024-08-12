@@ -3,5 +3,11 @@
   </app-categories-slider>
   <app-page-wrapper [isPending]="loading" [isError]="error" [errorMsg]="errorMsg">
     <app-product-list [products]="products"></app-product-list>
+    <app-pagination
+      [currentPage]="page"
+      [totalPages]="totalPages"
+      (onPageChange)="handlePageChange($event)"
+    >
+    </app-pagination>
   </app-page-wrapper>
 </div>
