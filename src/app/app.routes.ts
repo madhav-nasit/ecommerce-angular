@@ -8,13 +8,17 @@ import { DashboardComponent } from './pages/primary/dashboard/dashboard.componen
 import { PrimaryPageComponent } from './pages/primary/primary-page/primary-page.component';
 import { PrivacyPolicyComponent } from './pages/common/privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './pages/common/terms-of-service/terms-of-service.component';
+import { ProductDetailsComponent } from './pages/primary/product-details/product-details.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: PrimaryPageComponent,
     canActivate: [authGuard],
-    children: [{ path: '', component: DashboardComponent }],
+    children: [
+      { path: '', component: DashboardComponent },
+      { path: 'products/:productId', component: ProductDetailsComponent },
+    ],
   }, // primary flow routes
   {
     path: 'auth',

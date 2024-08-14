@@ -1,0 +1,67 @@
+<app-page-wrapper [isError]="isError" [isPending]="isPending">
+  <div
+    class="box-border h-fit w-full max-w-screen-xl xl:mx-auto text-color md:my-8 dark:text-color-dark"
+  >
+    <div class="flex h-fit w-full flex-col space-x-0 md:flex-row md:space-x-5 p-4">
+      <!-- Product Image Section -->
+      <div class="w-full md:w-3/5 lg:w-1/2">
+        <div
+          class="flex justify-center rounded-lg border border-border bg-secondary shadow-md md:h-80 dark:border-border-dark dark:bg-secondary-dark"
+        >
+          <img
+            [src]="mainImage ? mainImage : product?.thumbnail"
+            [alt]="product?.title"
+            class="h-full object-contain"
+          />
+        </div>
+        <div class="mt-2 flex space-x-2 overflow-scroll p-2">
+          @for (image of product?.images; track $index) {
+          <div
+            class="flex h-20 justify-center w-full max-w-24 cursor-pointer rounded-lg border border-border object-cover shadow-md transition-transform duration-300 hover:scale-110 dark:border-border-dark"
+            [class]="mainImage === image ? 'scale-105 border-2 border-primary shadow' : ''"
+            (click)="handleThumbnailClick(image)"
+          >
+            <img [src]="image" [alt]="'Image ' + $index" class="h-full object-cover" />
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Product Details Section -->
+      @if (product) {
+      <div class="w-full pb-4 md:w-2/5 lg:w-1/2">
+        <h1 class="mb-4 text-3xl font-bold">{{ product.title }}</h1>
+        <p class="mb-4">{{ product.description }}</p>
+        <div class="mb-4 flex items-center">
+          <span class="text-lg font-bold">${{ product.price }}</span>
+          @if (product.discountPercentage > 0) {
+          <span class="text-sm text-light dark:text-light-dark">
+            ({{ product.discountPercentage }}% off)
+          </span>
+          }
+        </div>
+        <app-detail-row
+          [heading]="strings.warranty"
+          [value]="product.warrantyInformation"
+        ></app-detail-row>
+        <app-detail-row [heading]="strings.rating" [value]="product.rating"></app-detail-row>
+        <app-detail-row [heading]="strings.category" [value]="product.category"></app-detail-row>
+        <app-detail-row [heading]="strings.stock" [value]="product.stock"></app-detail-row>
+
+        <app-button class="w-full min-w-64 lg:w-auto" (click)="goToCart()">
+          {{ strings.goToCart }}
+        </app-button>
+        <!-- @if(productCart){
+        <button class="w-full min-w-64 lg:w-auto" (click)="goToCart()">
+          {{ strings.goToCart }}
+        </button>
+        }@else {
+        <button class="w-full min-w-64 lg:w-auto" (click)="addToCart()">
+          {{ strings.addToCart }}
+        </button>
+        } -->
+      </div>
+      }
+    </div>
+  </div>
+</app-page-wrapper>

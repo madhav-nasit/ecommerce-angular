@@ -13,6 +13,30 @@ export interface ProductRes {
   products: Product[];
 }
 
+interface Dimensions {
+  width: number;
+  height: number;
+  depth: number;
+}
+
+// Interface for product reviews
+interface Review {
+  rating: number;
+  comment?: string;
+  date: Date;
+  reviewerName?: string;
+  reviewerEmail?: string;
+}
+
+// Interface for the product meta information
+interface Meta {
+  createdAt: Date;
+  updatedAt: Date;
+  barcode?: string;
+  qrCode?: string;
+}
+
+// Main Product interface
 export interface Product {
   _id: string;
   title: string;
@@ -22,6 +46,18 @@ export interface Product {
   rating: number;
   stock: number;
   category: string;
+  tags?: string[];
+  brand?: string;
+  sku?: string;
+  weight?: string;
+  dimensions?: Dimensions;
+  warrantyInformation?: string;
+  shippingInformation?: string;
+  availabilityStatus?: string;
+  reviews?: Review[];
+  returnPolicy?: string;
+  minimumOrderQuantity?: number;
+  meta: Meta;
   thumbnail: string;
   images: string[];
 }

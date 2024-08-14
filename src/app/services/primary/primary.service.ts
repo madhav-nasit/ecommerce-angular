@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../../environments/environment';
 import { endPoints } from '../endPoints';
 import { map } from 'rxjs';
-import { ProductRes } from '../../types';
+import { Product, ProductRes } from '../../types';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,16 @@ export class PrimaryService {
           ...(categoryName && categoryName !== 'all' && { category: categoryName }),
         },
       })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+      );
+  }
+
+  getProductById(productId?: string) {
+    return this.http
+      .get<Product>(`${environment.apiUrl}${endPoints.primary.products}/${productId}`)
       .pipe(
         map((response) => {
           return response;

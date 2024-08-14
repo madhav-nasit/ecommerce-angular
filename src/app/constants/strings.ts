@@ -52,6 +52,15 @@ export const strings = {
       previous: 'Previous',
       noProduct: 'No product available.',
     },
+    productDetails: {
+      addToCart: 'Add to Cart',
+      goToCart: 'Go to Cart',
+      rating: 'Rating',
+      brand: 'Brand',
+      category: 'Category',
+      stock: 'Stock',
+      warranty: 'Warranty',
+    },
   },
   apiErrors: {
     networkError: 'Unable to connect to the server. Please try again.',

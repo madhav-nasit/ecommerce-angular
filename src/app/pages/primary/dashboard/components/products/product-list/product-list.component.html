@@ -7,7 +7,9 @@
     class="flex flex-col overflow-hidden rounded-lg bg-card shadow-md hover:scale-105 dark:bg-card-dark"
     (click)="navigateToProductDetails(product._id)"
   >
-    <img [src]="product.thumbnail" [alt]="product.title" class="h-40 w-full object-cover" />
+    <div class="flex justify-center h-40 w-full object-contain">
+      <img [src]="product.thumbnail" [alt]="product.title" class="h-full object-contain" />
+    </div>
     <div class="flex w-full flex-col items-stretch p-3">
       <h3 class="line-clamp-1 text-left text-sm">{{ product.title }}</h3>
       <div class="flex items-center space-x-1">
