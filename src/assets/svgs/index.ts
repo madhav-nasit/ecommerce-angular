@@ -4,4 +4,5 @@ export const svg = {
   menuIcon: 'assets/svgs/menu-icon.svg',
   chevronRight: 'assets/svgs/chevron-right.svg',
   chevronLeft: 'assets/svgs/chevron-left.svg',
+  cart: 'assets/svgs/cart.svg',
 };
