@@ -1,0 +1,45 @@
+<div class="flex items-center rounded-lg bg-card p-4 dark:bg-card-dark">
+  <!-- Display item thumbnail -->
+  <img [src]="item.product.thumbnail" [alt]="item.product.title" class="mr-4 h-16 w-16 rounded" />
+
+  <div class="flex w-full flex-col items-start space-y-1">
+    <!-- Display item title -->
+    <h2 class="text-base font-semibold md:text-lg">{{ item.product.title }}</h2>
+
+    <!-- Display item price -->
+    <p class="text-sm text-color dark:text-color-dark">
+      {{ strings.price }}:
+      <span class="text-light dark:text-light-dark">{{ item.product.price }}</span>
+    </p>
+
+    <!-- Quantity controls -->
+    <div
+      class="border-1 flex items-center justify-center rounded-md border-2 border-border text-base text-color-dark dark:border-border-dark dark:bg-button-dark dark:text-color-dark"
+    >
+      <!-- Decrease quantity button -->
+      <button
+        (click)="onQuantityChange(item.product._id, item.quantity - 1)"
+        class="size-7 rounded-md bg-button font-bold"
+        [disabled]="item.quantity === 0"
+      >
+        -
+      </button>
+
+      <!-- Display current quantity -->
+      <p class="w-7 text-center text-sm text-color dark:text-color-dark">{{ item.quantity }}</p>
+
+      <!-- Increase quantity button -->
+      <button
+        (click)="onQuantityChange(item.product._id, item.quantity + 1)"
+        class="size-7 rounded-md bg-button font-bold"
+      >
+        +
+      </button>
+    </div>
+  </div>
+
+  <!-- Display subtotal -->
+  <p class="ml-auto text-color dark:text-color-dark">
+    {{ calculateSubtotal(item.product.price, item.quantity) }}
+  </p>
+</div>

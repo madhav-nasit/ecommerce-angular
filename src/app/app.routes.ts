@@ -9,6 +9,7 @@ import { PrimaryPageComponent } from './pages/primary/primary-page/primary-page.
 import { PrivacyPolicyComponent } from './pages/common/privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './pages/common/terms-of-service/terms-of-service.component';
 import { ProductDetailsComponent } from './pages/primary/product-details/product-details.component';
+import { CartComponent } from './pages/primary/cart/cart.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
+      { path: 'cart', component: CartComponent },
     ],
   }, // primary flow routes
   {

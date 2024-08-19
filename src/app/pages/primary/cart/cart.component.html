@@ -1,0 +1,64 @@
+<div class="h-fit w-full">
+  <app-page-wrapper [isError]="isError" [isPending]="isPending" [errorMsg]="errorMsg">
+    <div class="mx-auto h-fit w-screen max-w-screen-xl bg-background p-8 dark:bg-background-dark">
+      <h1 class="mb-4 text-2xl font-bold text-color dark:text-color-dark">Cart</h1>
+      <div class="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+        <div class="w-full md:w-3/5">
+          @if (cart$ | async; as cart) {
+          <div class="grid grid-cols-1 gap-4">
+            @for (item of cart.products; track $index) {
+            <app-cart-item [item]="item" (handleQuantityChange)="handleQuantityChange($event)">
+            </app-cart-item>
+            }
+            <app-button class="mx-auto" (click)="deleteCart(cart._id)">Delete Cart</app-button>
+          </div>
+          }
+        </div>
+
+        <div class="w-full md:w-2/5">
+          @if (cart$ | async; as cart) {
+          <div class="space-y-3 rounded-lg bg-card p-4 dark:bg-card-dark">
+            <h3>Cart Summary</h3>
+            <hr class="my-8 h-px border-0 bg-border dark:bg-border-dark" />
+            <div class="flex flex-row justify-between text-sm">
+              <p class="font-medium text-color dark:text-color-dark">Subtotal:</p>
+              <p class="text-light dark:text-light-dark">${{ cart?.totalAmount?.toFixed(2) }}</p>
+            </div>
+            <div class="flex flex-row justify-between text-sm">
+              <p class="font-medium text-color dark:text-color-dark">Discount:</p>
+              <p class="text-light dark:text-light-dark">
+                - ${{ cart?.totalDiscount?.toFixed(2) }}
+              </p>
+            </div>
+            <hr class="my-8 h-px border-0 bg-border dark:bg-border-dark" />
+            <div class="flex flex-row justify-between pb-1 text-sm">
+              <p class="font-medium text-color dark:text-color-dark">Total:</p>
+              <p class="text-light dark:text-light-dark">${{ cart?.finalAmount?.toFixed(2) }}</p>
+            </div>
+            <app-button class="w-full" extraClass="w-full mt-2" (click)="onPlaceOrder()"
+              >Place Order</app-button
+            >
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </app-page-wrapper>
+  @if (showRemoveItem.isVisible && showRemoveItem.onDelete) {
+  <app-delete-confirm
+    [heading]="'Remove Item'"
+    [message]="'Are you sure you want to remove this item?'"
+    (delete)="showRemoveItem.onDelete()"
+    (cancel)="showRemoveItem.isVisible = false"
+  >
+  </app-delete-confirm>
+  } @if (showRemoveCart.isVisible && showRemoveCart.onDelete) {
+  <app-delete-confirm
+    [heading]="'Delete Cart'"
+    [message]="'Are you sure you want to delete this cart?'"
+    (delete)="showRemoveCart.onDelete()"
+    (cancel)="showRemoveCart.isVisible = false"
+  >
+  </app-delete-confirm>
+  }
+</div>

@@ -47,19 +47,15 @@
         <app-detail-row [heading]="strings.rating" [value]="product.rating"></app-detail-row>
         <app-detail-row [heading]="strings.category" [value]="product.category"></app-detail-row>
         <app-detail-row [heading]="strings.stock" [value]="product.stock"></app-detail-row>
-
+        @if(productInCart){
         <app-button class="w-full min-w-64 lg:w-auto" (click)="goToCart()">
           {{ strings.goToCart }}
         </app-button>
-        <!-- @if(productCart){
-        <button class="w-full min-w-64 lg:w-auto" (click)="goToCart()">
-          {{ strings.goToCart }}
-        </button>
         }@else {
-        <button class="w-full min-w-64 lg:w-auto" (click)="addToCart()">
+        <app-button class="w-full min-w-64 lg:w-auto" (click)="addToCart()">
           {{ strings.addToCart }}
-        </button>
-        } -->
+        </app-button>
+        }
       </div>
       }
     </div>

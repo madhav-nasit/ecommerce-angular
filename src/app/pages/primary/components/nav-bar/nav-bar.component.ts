@@ -27,7 +27,6 @@ import { CartButtonComponent } from '../cart-button/cart-button.component';
 export class NavBarComponent {
   @Input() sticky = true;
   user$!: Observable<User | null>;
-  cart$!: Observable<Carts | null>;
   menuVisible = false;
   commonStrings = strings.common;
   strings = strings.primary;
@@ -42,7 +41,6 @@ export class NavBarComponent {
 
   ngOnInit(): void {
     this.user$ = this.authService.user$.pipe(map((state) => state));
-    this.cart$ = this.cartService.cart$.pipe(map((state) => state));
     this.getProfile();
     this.getCart();
   }
